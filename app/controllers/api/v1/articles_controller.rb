@@ -17,10 +17,17 @@ module Api
 
             end
             
-            
-            # def update
-            
-            # end
+            def update
+                article = Article.find(params[:id])
+                
+                article.update(article_params)
+                if article.valid?
+                    render json: {status: 'article updated', data: article}, status: :ok
+                else
+                    render json: {status: 'error', message: 'article not updated', data: article.errors}, status: :unprocessable_entity
+                end
+                
+            end
             
             def show
                 article = Article.find(params[:id])
