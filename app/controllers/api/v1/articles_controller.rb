@@ -6,13 +6,16 @@ module Api
                 render json: {message: 'articles loaded', data: articles}, status: :ok
             end
             
-            # def new
-            
-            # end
-            
-            # def create
-            
-            # end
+            def create
+                article = Article.new(article_params)
+                if article.valid?
+                    article.save
+                    render json: {status: 'article posted successfully', data: article}, status: :ok
+                else
+                    render json: {status: 'Error', data: article.errors}, status: :unprocessable_entity
+                end
+
+            end
             
             # def edit
             
@@ -30,6 +33,12 @@ module Api
             # def destroy
             
             # end
+
+            private
+
+            def article_params
+                params.permit(:title, :body)
+            end
             
         end
     end
