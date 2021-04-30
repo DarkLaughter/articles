@@ -22,9 +22,10 @@ module Api
             
             # end
             
-            # def show
-            
-            # end
+            def show
+                article = Article.find(params[:id])
+                render json: {message: 'article requested', data: article}, status: :ok
+            end
             
             # def destroy
             
